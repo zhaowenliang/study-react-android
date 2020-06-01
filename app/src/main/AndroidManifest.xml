@@ -23,8 +23,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".login.activity.LoginActivity" />
+
+        <activity android:name=".CommonReactActivity" />
+
         <!-- RN开发设置页面 -->
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+        <!-- React JS服务 -->
+        <service android:name=".reactnative.sevice.RCTTaskService" />
 
     </application>
 
