@@ -10,6 +10,10 @@ public class CommonReactActivity extends ReactActivity {
 
     private String mComponentName;
 
+    public CommonReactActivity() {
+
+    }
+
     public CommonReactActivity(String componentName) {
         this.mComponentName = componentName;
     }
