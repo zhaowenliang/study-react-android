@@ -127,6 +127,9 @@ dependencies {
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules 总是匹配最新版本
+    // node_modules react-native使用库
+    implementation project(':react-native-gesture-handler')
+    implementation project(':react-native-safe-area-context')
 
     implementation "androidx.appcompat:appcompat:${versions.androidx_compat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}"

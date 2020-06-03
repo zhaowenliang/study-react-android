@@ -9,6 +9,7 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 
 import java.io.File;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public class AppReactNativeHost extends ReactNativeHost {
     protected List<ReactPackage> getPackages() {
         return Arrays.asList(
                 new MainReactPackage(),
+                new RNGestureHandlerPackage(),
                 new AppReactPackage());
     }
 
