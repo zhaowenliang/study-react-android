@@ -21,8 +21,8 @@ public class AppReactPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull final ReactApplicationContext reactContext) {
         return Arrays.asList(
-                new ToastExampleModule(),
-                new AppRouterModule());
+                new ToastExampleModule(reactContext),
+                new AppRouterModule(reactContext));
     }
 
     @NonNull

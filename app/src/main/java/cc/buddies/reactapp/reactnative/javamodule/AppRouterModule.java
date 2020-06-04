@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
@@ -16,6 +17,10 @@ public class AppRouterModule extends ReactContextBaseJavaModule {
 
     private static final String MODULE_NAME = "AppRouter";
 
+    public AppRouterModule(@NonNull final ReactApplicationContext reactContext) {
+        super(reactContext);
+    }
+
     @NonNull
     @Override
     public String getName() {
@@ -26,7 +31,9 @@ public class AppRouterModule extends ReactContextBaseJavaModule {
     public void navigation(@NonNull String url, @Nullable ReadableMap params) {
         StringBuilder logBuilder = new StringBuilder("路由: " + url);
         if (params != null) {
-            logBuilder.append("    参数: ").append(params.toString());
+            logBuilder.append("    ")
+                    .append("参数: ")
+                    .append(params.toHashMap().toString());
         }
         Log.d(MODULE_NAME, logBuilder.toString());
     }
