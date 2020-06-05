@@ -52,7 +52,7 @@ public class AppReactNativeHost extends ReactNativeHost {
      */
     @Override
     protected String getJSMainModuleName() {
-        return "index";
+        return BundleManager.JS_MAIN_MODULE_NAME;
     }
 
     /**
@@ -61,7 +61,7 @@ public class AppReactNativeHost extends ReactNativeHost {
     @NonNull
     @Override
     protected String getBundleAssetName() {
-        return "index.android.bundle";
+        return BundleManager.BUNDLE_NAME;
     }
 
     /**
@@ -70,7 +70,7 @@ public class AppReactNativeHost extends ReactNativeHost {
     @Nullable
     @Override
     protected String getJSBundleFile() {
-        File rootPath = FileConstants.getReactNativeRootPath(getApplication().getApplicationContext());
+        File rootPath = BundleManager.getReactNativeRootPath(getApplication().getApplicationContext());
         String filename = getBundleAssetName();
         File bundleFile = new File(rootPath, filename);
         return bundleFile.getAbsolutePath();

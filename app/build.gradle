@@ -5,7 +5,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
         // 是否使用Hermes引擎，替换JavaScript Core的JavaScript引擎
-        enableHermes: false,  // clean and rebuild if changing
+        enableHermes: true,  // clean and rebuild if changing
 ]
 
 /**
@@ -39,6 +39,9 @@ android {
         versionCode app.versionCode
         versionName app.versionName
 
+        // assets目录下bundle包版本
+        buildConfigField "String", "BUNDLE_VERSION", "\"${app.bundleVersion}\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,10 +61,12 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            if (project.hasProperty('APP_RELEASE_STORE_FILE')) {
+                storeFile file(APP_RELEASE_STORE_FILE)
+                storePassword APP_RELEASE_STORE_PASSWORD
+                keyAlias APP_RELEASE_KEY_ALIAS
+                keyPassword APP_RELEASE_KEY_PASSWORD
+            }
         }
     }
 
@@ -134,6 +139,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${versions.androidx_compat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.androidx_swiperefreshlayout}"
+    implementation "androidx.work:work-runtime:${versions.androidx_work_runtime}"
+
+    implementation "commons-io:commons-io:${versions.commons_io}"
+    implementation "org.apache.commons:commons-compress:${versions.commons_compress}"
 }
 
 // Run this once to be able to run the application with BUCK

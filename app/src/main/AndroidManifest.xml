@@ -11,17 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".login.activity.LoginActivity" />
 
@@ -30,7 +32,7 @@
         <!-- RN开发设置页面 -->
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
-        <!-- React JS服务 -->
+        <!-- React JS后台任务 -->
         <service android:name=".reactnative.sevice.RCTTaskService" />
 
     </application>
