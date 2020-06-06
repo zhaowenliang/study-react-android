@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -19,15 +20,15 @@ import cc.buddies.reactapp.utils.CompressUtils;
 import cc.buddies.reactapp.utils.PropertiesUtils;
 
 /**
- * 初始化ReactBundle包Callable
+ * 初始化assets下的ReactBundle包任务
  */
-public class InitReactBundleCallable implements Callable<Boolean> {
+public class AssetsReactBundleCallable implements Callable<Boolean> {
 
     private static final String TAG = "初始化bundle包任务";
 
     private WeakReference<Context> mContextWeakReference;
 
-    public InitReactBundleCallable(Context context) {
+    public AssetsReactBundleCallable(Context context) {
         this.mContextWeakReference = new WeakReference<>(context);
     }
 
@@ -36,7 +37,7 @@ public class InitReactBundleCallable implements Callable<Boolean> {
         String assetsBundleName = BundleManager.BUNDLE_ASSET_NAME;
         String propertiesName = BundleManager.BundleProperties.BUNDLE_PROPERTIES_NAME;
 
-        Context context = null;
+        Context context;
         if (mContextWeakReference != null && mContextWeakReference.get() != null) {
             context = mContextWeakReference.get();
         } else {

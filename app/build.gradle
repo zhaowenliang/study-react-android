@@ -142,6 +142,7 @@ dependencies {
     implementation "androidx.work:work-runtime:${versions.androidx_work_runtime}"
 
     implementation "commons-io:commons-io:${versions.commons_io}"
+    implementation "commons-codec:commons-codec:${versions.commons_codec}"
     implementation "org.apache.commons:commons-compress:${versions.commons_compress}"
 }
 

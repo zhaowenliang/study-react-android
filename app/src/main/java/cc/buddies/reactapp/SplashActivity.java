@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-import cc.buddies.reactapp.task.InitReactBundleCallable;
+import cc.buddies.reactapp.task.AssetsReactBundleCallable;
 import cc.buddies.reactapp.thread.AppThreadFactory;
 
 public class SplashActivity extends AppCompatActivity {
@@ -30,11 +30,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initReactBundle() {
         long beginTimeMillis = System.currentTimeMillis();
+        ExecutorService executor = AppThreadFactory.getExecutor();
 
         try {
-            ExecutorService executor = AppThreadFactory.getExecutor();
-            Future<Boolean> submit = executor.submit(new InitReactBundleCallable(getApplicationContext()));
-
+            Future<Boolean> submit = executor.submit(new AssetsReactBundleCallable(getApplicationContext()));
             boolean result = submit.get();
             Log.i(TAG, "初始化assets-bundle结果: " + result);
         } catch (Exception e) {
@@ -42,12 +41,13 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         long subTime = System.currentTimeMillis() - beginTimeMillis;
-        long delayTime = subTime < 0 ? 0 : SPLASH_TIME - subTime;
-        new Handler().postDelayed(this::next, delayTime);
+        long delayTime = SPLASH_TIME - subTime;
+        new Handler().postDelayed(this::next, delayTime < 0 ? 0 : delayTime);
     }
 
     private void next() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }

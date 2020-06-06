@@ -28,5 +28,6 @@ ext.versions = [
         "androidx_work_runtime"        : '2.3.4',
 
         "commons_io"                   : "2.6",
+        "commons_codec"                : "1.14",
         "commons_compress"             : "1.20",
 ]
