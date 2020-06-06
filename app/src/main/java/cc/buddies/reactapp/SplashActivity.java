@@ -2,11 +2,12 @@ package cc.buddies.reactapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.facebook.react.bridge.UiThreadUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -18,13 +19,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = "SplashActivity";
 
-    private static final long SPLASH_TIME = 1500;
+    private static final long SPLASH_TIME = 2000;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
         initReactBundle();
     }
 
@@ -41,8 +40,8 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         long subTime = System.currentTimeMillis() - beginTimeMillis;
-        long delayTime = SPLASH_TIME - subTime;
-        new Handler().postDelayed(this::next, delayTime < 0 ? 0 : delayTime);
+        long delayTime = SPLASH_TIME > subTime ? SPLASH_TIME - subTime : 0;
+        UiThreadUtil.runOnUiThread(this::next, delayTime);
     }
 
     private void next() {

@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Splash">
+        <!--窗体背景，这个背景能在第一时间显示, 避免启动时白屏，黑屏问题-->
+        <item name="android:windowBackground">@drawable/splash</item>
+
+        <!-- 全屏 透明状态栏 -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
 </resources>

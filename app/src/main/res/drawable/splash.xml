@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+
+    <item android:drawable="@color/colorSplash"/>
+
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_logo"/>
+    </item>
+
+    <!--<item android:bottom="50dp">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_logo"/>
+    </item>-->
+
+    <!--<item android:bottom="10dp">
+        <bitmap
+            android:gravity="bottom"
+            android:src="@drawable/image_ic_vip"/>
+    </item>-->
+
+</layer-list>
