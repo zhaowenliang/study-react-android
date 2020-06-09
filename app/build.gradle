@@ -1,11 +1,10 @@
 apply plugin: "com.android.application"
-apply from: "../../node_modules/react-native/react.gradle"
 
 import com.android.build.OutputFile
 
 project.ext.react = [
         // 是否使用Hermes引擎，替换JavaScript Core的JavaScript引擎
-        enableHermes: true,  // clean and rebuild if changing
+        enableHermes: false,  // clean and rebuild if changing
 ]
 
 /**
@@ -28,6 +27,12 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  * 在project.ext.react中配置是否启用。
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
+
+// 引用react.gradle插件构建bundle包（只在构建方式为release生效，debug模式不需要构建bundle包）
+apply from: "../../node_modules/react-native/react.gradle"
+
+// react构建bundle包自定义处理
+apply from: "react-bundle.gradle"
 
 android {
     compileSdkVersion versions.compileSdkVersion
@@ -133,8 +138,8 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules 总是匹配最新版本
     // node_modules react-native使用库
-    implementation project(':react-native-gesture-handler')
-    implementation project(':react-native-safe-area-context')
+//    implementation project(':react-native-gesture-handler')
+//    implementation project(':react-native-safe-area-context')
 
     implementation "androidx.appcompat:appcompat:${versions.androidx_compat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}"

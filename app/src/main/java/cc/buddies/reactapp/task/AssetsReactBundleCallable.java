@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -35,6 +34,7 @@ public class AssetsReactBundleCallable implements Callable<Boolean> {
     @Override
     public Boolean call() throws Exception {
         String assetsBundleName = BundleManager.BUNDLE_ASSET_NAME;
+        String assetsBundleResourceName = BundleManager.BUNDLE_ASSET_RESOURCE_NAME;
         String propertiesName = BundleManager.BundleProperties.BUNDLE_PROPERTIES_NAME;
 
         Context context;
@@ -47,6 +47,7 @@ public class AssetsReactBundleCallable implements Callable<Boolean> {
         try {
             File outBundlePath = BundleManager.getReactNativeRootPath(context.getApplicationContext());
             File outBundleFile = new File(outBundlePath, assetsBundleName);
+            File outBundleResourceFile = new File(outBundlePath, assetsBundleResourceName);
 
             // 加载bundle包配置
             File bundlePropertiesFile = new File(outBundlePath, propertiesName);
@@ -59,6 +60,10 @@ public class AssetsReactBundleCallable implements Callable<Boolean> {
                 InputStream inputStream = context.getApplicationContext().getAssets().open(assetsBundleName);
                 FileUtils.copyInputStreamToFile(inputStream, outBundleFile);
                 CompressUtils.decompress(outBundleFile, outBundlePath);
+
+                InputStream inputStreamResource = context.getApplicationContext().getAssets().open(assetsBundleResourceName);
+                FileUtils.copyInputStreamToFile(inputStreamResource, outBundleResourceFile);
+                CompressUtils.decompress(outBundleResourceFile, outBundlePath);
 
                 // 创建bundle配置
                 Map<String, Object> bundleParams = new HashMap<>();

@@ -20,4 +20,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.facebook.hermes.unicode.** { *; }
+# react-native
+-keep class com.facebook.hermes.unicode.* { *; }

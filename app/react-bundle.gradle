@@ -1,0 +1,92 @@
+def config = project.hasProperty("react") ? project.react : [:];
+def bundleAssetName = config.bundleAssetName ?: "index.android.bundle"
+
+/**
+ * 操作react.gradle任务，在"bundle${targetName}JsAndAssets"任务之后，"copy${targetName}BundledJs"之前执行
+ * 1. 压缩bundle包，生成index.android.zip文件
+ * 2. 删除bundle包
+ * 3. 压缩构建baundle生成的本地资源文件，生成bundle-resource.zip文件
+ *
+ * react.gradle中有任务将生成的两个压缩包，拷贝到apk的assets目录下，启动app的时候将压缩包解压到指定存储位置即可。
+ */
+afterEvaluate {
+    def isAndroidLibrary = plugins.hasPlugin("com.android.library")
+    def variants = isAndroidLibrary ? android.libraryVariants : android.applicationVariants
+    variants.all { def variant ->
+        // Create variant and target names
+        def targetName = variant.name.capitalize()
+        def targetPath = variant.dirName
+
+        // React js bundle directories
+        def jsBundleDir = file("$buildDir/generated/assets/react/${targetPath}")
+        def resourcesDir = file("$buildDir/generated/res/react/${targetPath}")
+        def jsBundleFile = file("${jsBundleDir}/${bundleAssetName}")
+
+        def bundleJsAndAssetsTask = tasks.findByName("bundle${targetName}JsAndAssets")
+        def copyBundledJsTask = tasks.findByName("copy${targetName}BundledJs")
+
+        // 1. 创建压缩任务，将bundle包压缩为zip包
+        def currentCompressBundleTask = tasks.create(name: "compress${targetName}Bundle", type: Zip) {
+            group = "react"
+            description = "compress assets bundle for ${targetName}."
+
+            from(jsBundleFile)
+            baseName("index.android")
+            extension("zip")
+
+            if (config."jsBundleDir${targetName}") {
+                destinationDir(file(config."jsBundleDir${targetName}"))
+            } else {
+                destinationDir(file(jsBundleDir))
+            }
+
+            doLast {
+                def resourcesDirConfigValue = config."resourcesDir${targetName}"
+                println("resourcesDirConfigValue: ${resourcesDirConfigValue}")
+
+                if (resourcesDirConfigValue) {
+                    println("resourcesDirConfigValue is true")
+                    println("resourcesDir : ${resourcesDir}")
+                } else {
+                    println("resourcesDirConfigValue is false")
+                }
+            }
+        }
+
+        currentCompressBundleTask.dependsOn(bundleJsAndAssetsTask)
+        currentCompressBundleTask.onlyIf {
+            bundleJsAndAssetsTask.enabled
+        }
+
+        // 2. 创建删除任务，删除bundle文件
+        def currentDeleteBundleTask = tasks.create(name: "delete${targetName}Bundle", type: Delete) {
+            group = "react"
+            description = "delete assets bundle for ${targetName}."
+
+            delete(jsBundleFile)
+        }
+
+        currentDeleteBundleTask.dependsOn(currentCompressBundleTask)
+        currentDeleteBundleTask.onlyIf {
+            currentCompressBundleTask.enabled
+        }
+
+        // 3. 创建压缩resource任务，将resource资源压缩为zip包
+        def currentCompressResourceTask = tasks.create(name: "compress${targetName}Resouce", type: Zip) {
+            group = "react"
+            description = "compress assets resource for ${targetName}."
+
+            from(resourcesDir)
+            destinationDir(file(jsBundleDir))
+            baseName("bundle-resource")
+            extension("zip")
+        }
+
+        currentCompressResourceTask.dependsOn(bundleJsAndAssetsTask)
+        currentCompressResourceTask.onlyIf {
+            bundleJsAndAssetsTask.enabled
+        }
+
+        copyBundledJsTask.dependsOn(currentCompressBundleTask, currentDeleteBundleTask, currentCompressResourceTask)
+    }
+}

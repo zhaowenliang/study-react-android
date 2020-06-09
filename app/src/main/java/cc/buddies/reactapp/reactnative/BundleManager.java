@@ -26,6 +26,9 @@ public class BundleManager {
     // bundle压缩包名称
     public static final String BUNDLE_ASSET_NAME = "index.android.zip";
 
+    // bundle的资源文件压缩包名称
+    public static final String BUNDLE_ASSET_RESOURCE_NAME = "bundle-resource.zip";
+
     // assets目录下bundle包版本
     public static final String BUNDLE_VERSION = BuildConfig.BUNDLE_VERSION;
 

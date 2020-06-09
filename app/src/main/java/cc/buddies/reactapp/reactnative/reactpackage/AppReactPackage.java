@@ -6,7 +6,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.th3rdwave.safeareacontext.SafeAreaProviderManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +28,7 @@ public class AppReactPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(@NonNull final ReactApplicationContext reactContext) {
         return Arrays.asList(
-                new SafeAreaProviderManager(reactContext),
+//                new SafeAreaProviderManager(reactContext),
                 new ReactImageViewManager(reactContext));
     }
 }
