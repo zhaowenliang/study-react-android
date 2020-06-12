@@ -5,13 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import cc.buddies.reactapp.BuildConfig;
@@ -40,10 +40,10 @@ public class AppReactNativeHost extends ReactNativeHost {
      */
     @Override
     protected List<ReactPackage> getPackages() {
-        return Arrays.asList(
-                new MainReactPackage(),
-//                new RNGestureHandlerPackage(),
-                new AppReactPackage());
+        // 使用PackageList，自动构建node_modules依赖的ReactPackage。
+        ArrayList<ReactPackage> packages = new PackageList(this).getPackages();
+        packages.add(new AppReactPackage());
+        return packages;
     }
 
     /**

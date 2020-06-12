@@ -1,11 +1,7 @@
 rootProject.name = 'StudyReactNative'
 
+// 使用cli-platform-android自定创建"PackageList"，每次构建项目在文件内部，自动处理PackageManager。
+// 在"ReactNativeHost"的实现方法"getPackages()"中，需要加入PackageList getPackages()。
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-
-//include ':react-native-gesture-handler'
-//project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
-
-//include ':react-native-safe-area-context'
-//project(':react-native-safe-area-context').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-safe-area-context/android')
 
 include ':app'
