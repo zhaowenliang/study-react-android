@@ -5,7 +5,7 @@ def bundleAssetName = config.bundleAssetName ?: "index.android.bundle"
  * 操作react.gradle任务，在"bundle${targetName}JsAndAssets"任务之后，"copy${targetName}BundledJs"之前执行
  * 1. 压缩bundle包，生成index.android.zip文件
  * 2. 删除bundle包
- * 3. 压缩构建baundle生成的本地资源文件，生成bundle-resource.zip文件
+ * 3. 压缩构建bundle生成的本地资源文件，生成bundle-resource.zip文件
  *
  * react.gradle中有任务将生成的两个压缩包，拷贝到apk的assets目录下，启动app的时候将压缩包解压到指定存储位置即可。
  */
