@@ -26,7 +26,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  * 是否启用Hermes虚拟机。
  * 在project.ext.react中配置是否启用。
  */
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", true)
 
 // 引用react.gradle插件构建bundle包（只在构建方式为release生效，debug模式不需要构建bundle包）
 apply from: "../../node_modules/react-native/react.gradle"
@@ -150,3 +150,6 @@ dependencies {
 
 // ReactNative cli-platform-android 工具，构建项目自动构建node_modules中build.gradle。
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+// react-native-vector-icons库拷贝字体文件到assets目录
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

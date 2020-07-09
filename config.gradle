@@ -24,7 +24,7 @@ ext.versions = [
         "androidx_recycleview"         : "1.1.0",
         "androidx_fragment"            : "1.2.2",
         "androidx_viewpager2"          : '1.0.0',
-        "androidx_swiperefreshlayout"  : '1.0.0',
+        "androidx_swiperefreshlayout"  : '1.1.0',
         "androidx_work_runtime"        : '2.3.4',
 
         "commons_io"                   : "2.6",
