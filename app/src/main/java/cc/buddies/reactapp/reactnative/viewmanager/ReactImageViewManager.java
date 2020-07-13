@@ -18,7 +18,7 @@ import com.facebook.react.views.image.ReactImageView;
  */
 public class ReactImageViewManager extends SimpleViewManager<ReactImageView> {
 
-    private static final String VIEW_NAME = "AppRCTImageView";
+    private static final String VIEW_NAME = "CustomRCTImageView";
 
     private ReactApplicationContext mCallerContext;
 
